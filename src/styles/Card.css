@@ -1,21 +1,42 @@
 .card-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.card-grid.easy {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.card-grid.medium {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 18px;
+}
+
+.card-grid.hard {
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
 }
-.card-grid.easy {
-  grid-template-columns: repeat(4, 1fr);
-}
-.card-grid.medium {
-  grid-template-columns: repeat(4, 1fr);
-}
-.card-grid.hard {
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-}
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 10px;
   padding: 12px;
   border-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
@@ -29,15 +50,95 @@
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 10px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Make medium images smaller while keeping 4 columns */
+/* Easy mode: Larger, more prominent images */
+.card-grid.easy .card img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  min-height: 200px;
+}
+
+/* Medium mode: Square aspect ratio with proper sizing */
 .card-grid.medium .card img {
   aspect-ratio: 1 / 1;
-  object-fit: contain;
+  object-fit: cover;
+  min-height: 180px;
+  max-height: 220px;
 }
 
 .card-name {
   font-weight: 600;
   letter-spacing: 0.2px;
+  color: #e3e5e8;
+  font-size: 0.95rem;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Easy mode: Larger text for better readability */
+.card-grid.easy .card-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Medium mode: Slightly larger text */
+.card-grid.medium .card-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .card-grid.easy,
+  .card-grid.medium {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 500px;
+    gap: 16px;
+  }
+
+  .card-grid.hard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .card-grid.easy .card img {
+    min-height: 160px;
+  }
+
+  .card-grid.medium .card img {
+    min-height: 140px;
+    max-height: 180px;
+  }
+
+  .card-name {
+    font-size: 0.9rem;
+  }
+
+  .card-grid.easy .card-name {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid.easy,
+  .card-grid.medium,
+  .card-grid.hard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card {
+    padding: 8px;
+  }
+
+  .card img {
+    border-radius: 8px;
+  }
 }

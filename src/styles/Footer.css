@@ -1,0 +1,38 @@
+.footer {
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Consistent styling for all difficulty levels */
+.footer-easy,
+.footer-medium,
+.footer-hard {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  max-width: none;
+}
+
+.footer p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.5px;
+}
+
+.footer p:hover {
+  color: #22c55e;
+  transition: color 0.3s ease;
+  transform: scale(1.05);
+}

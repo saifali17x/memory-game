@@ -35,7 +35,11 @@ export default function App() {
     reset: resetTimer,
   } = useTimer();
   const [stats, setStats] = usePersistentState("stats", createInitialStats());
-  const [bestTimeMs, setBestTimeMs] = usePersistentState("bestTimeMs", null);
+  const [bestTimes, setBestTimes] = usePersistentState("bestTimes", {
+    easy: null,
+    medium: null,
+    hard: null,
+  });
   const [musicEnabled, setMusicEnabled] = usePersistentState(
     "musicEnabled",
     true
@@ -169,9 +173,16 @@ export default function App() {
         setStats((prevStats) =>
           recordGame(prevStats, difficulty, { won: true, timeMs: elapsedMs })
         );
-        setBestTimeMs((prev) =>
-          prev == null || elapsedMs < prev ? elapsedMs : prev
-        );
+        setBestTimes((prev) => {
+          const currentBest = prev[difficulty];
+          return {
+            ...prev,
+            [difficulty]:
+              currentBest == null || elapsedMs < currentBest
+                ? elapsedMs
+                : currentBest,
+          };
+        });
         return next;
       }
 
@@ -230,7 +241,7 @@ export default function App() {
         won={won}
         time={formatMs(elapsedMs)}
         difficulty={difficulty}
-        bestTime={formatMs(bestTimeMs)}
+        bestTime={formatMs(bestTimes[difficulty])}
       />
       {loading ? (
         <p>Loading cards…</p>
@@ -256,7 +267,7 @@ export default function App() {
           />
         </>
       )}
-      <Footer />
+      <Footer difficulty={difficulty} />
     </div>
   );
 }
